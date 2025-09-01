@@ -1,5 +1,3 @@
-// src/services/authService.ts
-
 import type { LoginForm, User } from '@/types/LoginPage.types';
 
 interface LoginResponse {
@@ -10,10 +8,10 @@ interface LoginResponse {
 }
 
 class AuthService {
-  private baseURL = 'http://localhost:3000/api'; // Replace with your actual API URL
+  private baseURL = 'http://localhost:3000/api'; 
 
   async login(credentials: LoginForm): Promise<LoginResponse> {
-    // Simulate API delay
+    
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Mock authentication logic

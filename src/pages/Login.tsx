@@ -1,8 +1,8 @@
-import { 
-  Button, 
-  Card, 
-  CardHeader, 
-  CardBody, 
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
   CardFooter,
   FormControl,
   FormLabel,
@@ -12,7 +12,7 @@ import {
   Heading,
   Text,
   Alert,
-  AlertIcon
+  AlertIcon,
 } from "@chakra-ui/react";
 import { SampleLogin } from "@/hooks/LoginHook";
 import type { LoginForm } from "@/types/LoginPage.types";
@@ -23,9 +23,9 @@ function LoginPage() {
     username: "",
     password: "",
   });
-  
+
   const { validateLogin, error, isLoading } = SampleLogin(loginForm);
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     validateLogin();
@@ -53,12 +53,14 @@ function LoginPage() {
         bg="white"
       >
         <CardHeader>
-          <Heading size="lg" color="green.600">Log In</Heading>
+          <Heading size="lg" color="green.600">
+            Log In
+          </Heading>
           <Text color="gray.600" mt={2}>
             Welcome back! Please enter your credentials
           </Text>
         </CardHeader>
-        
+
         <CardBody>
           <form onSubmit={handleSubmit}>
             <VStack spacing={4} w="full">
@@ -68,7 +70,7 @@ function LoginPage() {
                   {error}
                 </Alert>
               )}
-              
+
               <FormControl isRequired>
                 <FormLabel>Username</FormLabel>
                 <Input
@@ -80,10 +82,10 @@ function LoginPage() {
                   focusBorderColor="green.400"
                 />
               </FormControl>
-              
+
               <FormControl isRequired>
                 <FormLabel>Password</FormLabel>
-                <Input 
+                <Input
                   type="password"
                   placeholder="Enter your password"
                   value={loginForm.password}
@@ -96,15 +98,15 @@ function LoginPage() {
             </VStack>
           </form>
         </CardBody>
-        
+
         <CardFooter justify="flex-end" gap={2}>
           <Button variant="outline" onClick={handleCancel}>
             Cancel
           </Button>
-          <Button 
-            colorScheme="green" 
+          <Button
+            colorScheme="green"
             onClick={handleSubmit}
-            isLoading={isLoading} // You can connect this to a loading state from your hook
+            isLoading={false} // You can connect this to a loading state from your hook
           >
             Log in
           </Button>

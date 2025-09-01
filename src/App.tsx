@@ -1,4 +1,5 @@
 import LoginPage from "./pages/Login"
+import { Dashboard } from "./pages/Dashboard"
 import { Routes, Route } from "react-router-dom"
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<LoginPage />}/>
-        <Route path="/dashboard" />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </>
   )

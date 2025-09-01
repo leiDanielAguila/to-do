@@ -1,5 +1,3 @@
-// src/hooks/LoginHook.ts
-
 import { useState, useCallback } from 'react';
 import type { LoginForm, LoginHookReturn, User } from '@/types/LoginPage.types';
 import { authService } from '@/services/authService';
@@ -11,10 +9,10 @@ export const SampleLogin = (loginForm: LoginForm): LoginHookReturn => {
   const [user, setUser] = useState<User | null>(null);
 
   const validateLogin = useCallback(async () => {
-    // Reset error state
+    
     setError(null);
     
-    // Basic validation
+    
     if (!loginForm.username.trim() || !loginForm.password.trim()) {
       setError('Please fill in all required fields');
       return;
@@ -33,7 +31,7 @@ export const SampleLogin = (loginForm: LoginForm): LoginHookReturn => {
     setIsLoading(true);
 
     try {
-      // Simulate API call
+      
       const response = await authService.login(loginForm);
       
       if (response.success) {
@@ -41,7 +39,7 @@ export const SampleLogin = (loginForm: LoginForm): LoginHookReturn => {
         setUser(response.user || null);
         setError(null);
         
-        // Store auth token in localStorage or secure storage
+      
         localStorage.setItem('authToken', response.token || '');
         localStorage.setItem('user', JSON.stringify(response.user));
       } else {

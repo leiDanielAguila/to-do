@@ -1,5 +1,3 @@
-// src/types/LoginPage.types.ts
-
 export interface LoginForm {
   username: string;
   password: string;
