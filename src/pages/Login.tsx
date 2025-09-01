@@ -24,7 +24,7 @@ function LoginPage() {
     password: "",
   });
   
-  const { validateLogin, loggedIn, error } = SampleLogin(loginForm);
+  const { validateLogin, error, isLoading } = SampleLogin(loginForm);
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,7 +104,7 @@ function LoginPage() {
           <Button 
             colorScheme="green" 
             onClick={handleSubmit}
-            isLoading={false} // You can connect this to a loading state from your hook
+            isLoading={isLoading} // You can connect this to a loading state from your hook
           >
             Log in
           </Button>
