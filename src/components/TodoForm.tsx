@@ -15,43 +15,52 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-} from '@chakra-ui/react'
-import { useState } from 'react'
-import type { TodoFormData } from '../types/todo.types'
+  InputGroup,
+  InputRightElement,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import type { TodoFormData } from "../types/todo.types";
+import { TimePicker } from "./timeInput/TimePicker";
 
 interface TodoFormProps {
-  onSubmit: (todo: TodoFormData) => void
+  onSubmit: (todo: TodoFormData) => void;
 }
 
 export const TodoForm = ({ onSubmit }: TodoFormProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+
   const [formData, setFormData] = useState<TodoFormData>({
-    title: '',
-    description: '',
-    priority: 'medium',
-    dueDate: '',
-  })
+    title: "",
+    description: "",
+    priority: "medium",
+    dueDate: "",
+    dueTime: 0,
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (formData.title.trim()) {
-      onSubmit(formData)
+      onSubmit(formData);
       setFormData({
-        title: '',
-        description: '',
-        priority: 'medium',
-        dueDate: '',
-      })
-      onClose()
+        title: "",
+        description: "",
+        priority: "medium",
+        dueDate: "",
+        dueTime: 0,
+      });
+      onClose();
     }
-  }
+  };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
     <>
@@ -90,7 +99,11 @@ export const TodoForm = ({ onSubmit }: TodoFormProps) => {
 
                 <FormControl>
                   <FormLabel>Priority</FormLabel>
-                  <Select name="priority" value={formData.priority} onChange={handleInputChange}>
+                  <Select
+                    name="priority"
+                    value={formData.priority}
+                    onChange={handleInputChange}
+                  >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
@@ -106,6 +119,9 @@ export const TodoForm = ({ onSubmit }: TodoFormProps) => {
                     onChange={handleInputChange}
                   />
                 </FormControl>
+
+                <TimePicker />      
+            
               </VStack>
             </ModalBody>
 
@@ -121,5 +137,5 @@ export const TodoForm = ({ onSubmit }: TodoFormProps) => {
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
