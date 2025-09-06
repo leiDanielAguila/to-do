@@ -9,14 +9,17 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  StatHelpText,
   Card,
   CardBody,
-} from '@chakra-ui/react'
-import { TodoForm } from '../components/TodoForm'
-import { TodoList } from '../components/TodoList'
-import { useTodos } from '../hooks/useTodos'
-import type { TodoFormData } from '../types/todo.types'
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { TodoForm } from "../components/TodoForm";
+import { TodoList } from "../components/TodoList";
+import { useTodos } from "../hooks/useTodos";
+import type { TodoFormData } from "../types/todo.types";
+import { useRef } from "react";
+import { Menu } from "@/components/menu";
 
 export const Dashboard = () => {
   const {
@@ -27,7 +30,7 @@ export const Dashboard = () => {
     addTodo,
     toggleTodo,
     deleteTodo,
-  } = useTodos()
+  } = useTodos();
 
   const handleAddTodo = (formData: TodoFormData) => {
     addTodo({
@@ -35,10 +38,13 @@ export const Dashboard = () => {
       description: formData.description,
       priority: formData.priority,
       completed: false,
-      dueDate: formData.dueDate ? new Date(formData.dueDate) : undefined,
-    })
-  }
-
+      dueDate: formData.dueDate
+        ? new Date(formData.dueDate).toISOString()
+        : undefined,
+    });
+  };
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef<HTMLButtonElement | null>(null);
   return (
     <Box bg="green.50" minH="100vh">
       <Container maxW="7xl" py={8}>
@@ -49,6 +55,14 @@ export const Dashboard = () => {
             </Heading>
             <TodoForm onSubmit={handleAddTodo} />
           </HStack>
+
+          <HStack justify="space-between">
+            <Button colorScheme="green" onClick={onOpen} ref={btnRef}>
+              Menu
+            </Button>
+          </HStack>
+
+          <Menu isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
 
           <Grid templateColumns="repeat(4, 1fr)" gap={6}>
             <GridItem>
@@ -66,7 +80,9 @@ export const Dashboard = () => {
                 <CardBody>
                   <Stat>
                     <StatLabel color="green.600">Pending</StatLabel>
-                    <StatNumber color="yellow.600">{pendingTodos.length}</StatNumber>
+                    <StatNumber color="yellow.600">
+                      {pendingTodos.length}
+                    </StatNumber>
                   </Stat>
                 </CardBody>
               </Card>
@@ -76,7 +92,9 @@ export const Dashboard = () => {
                 <CardBody>
                   <Stat>
                     <StatLabel color="green.600">Completed</StatLabel>
-                    <StatNumber color="green.600">{completedTodos.length}</StatNumber>
+                    <StatNumber color="green.600">
+                      {completedTodos.length}
+                    </StatNumber>
                   </Stat>
                 </CardBody>
               </Card>
@@ -86,7 +104,9 @@ export const Dashboard = () => {
                 <CardBody>
                   <Stat>
                     <StatLabel color="green.600">High Priority</StatLabel>
-                    <StatNumber color="red.500">{todosByPriority.high.length}</StatNumber>
+                    <StatNumber color="red.500">
+                      {todosByPriority.high.length}
+                    </StatNumber>
                   </Stat>
                 </CardBody>
               </Card>
@@ -114,5 +134,5 @@ export const Dashboard = () => {
         </VStack>
       </Container>
     </Box>
-  )
-}
+  );
+};

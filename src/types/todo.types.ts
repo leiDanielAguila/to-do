@@ -5,7 +5,7 @@ export interface Todo {
   completed: boolean
   priority: 'low' | 'medium' | 'high'
   createdAt: Date
-  dueDate?: Date
+  dueDate?: string
   dueTime?: number
 }
 

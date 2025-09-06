@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   FormControl,
   FormLabel,
@@ -15,8 +14,6 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  InputGroup,
-  InputRightElement,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import type { TodoFormData } from "../types/todo.types";
