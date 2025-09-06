@@ -24,6 +24,7 @@ const priorityColors = {
 }
 
 export const TodoCard = ({ todo, onToggle, onDelete }: TodoCardProps) => {
+
   return (
     <Box
       p={4}
@@ -53,7 +54,15 @@ export const TodoCard = ({ todo, onToggle, onDelete }: TodoCardProps) => {
             </Text>
             <Badge colorScheme={priorityColors[todo.priority]} size="sm">
               {todo.priority}
-            </Badge>
+            </Badge>                    
+            <Text
+              fontSize="lg"
+              fontWeight="medium"
+              textDecoration={todo.completed ? 'line-through' : 'none'}
+              color={todo.completed ? 'gray.500' : 'gray.800'}
+            >
+              {todo.dueTime}
+            </Text>
           </HStack>
           
           {todo.description && (
