@@ -17,12 +17,15 @@ import {
 import { SampleLogin } from "@/hooks/LoginHook";
 import type { LoginForm } from "@/types/LoginPage.types";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [loginForm, setLoginForm] = useState<LoginForm>({
     username: "",
     password: "",
   });
+
+  const navigate = useNavigate()
 
   const { validateLogin, error, isLoading } = SampleLogin(loginForm);
 

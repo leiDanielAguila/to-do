@@ -13,6 +13,7 @@ import {
   CardBody,
   Button,
   useDisclosure,
+  Stack,
 } from "@chakra-ui/react";
 import { TodoForm } from "../components/TodoForm";
 import { TodoList } from "../components/TodoList";
@@ -43,20 +44,39 @@ export const Dashboard = () => {
         : undefined,
     });
   };
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement | null>(null);
+
   return (
     <Box bg="green.50" minH="100vh">
-      <Container maxW="7xl" py={8}>
-        <VStack spacing={8} align="stretch">
-          <HStack justify="space-between" align="center">
-            <Heading size="2xl" color="green.700">
+      <Container 
+        maxW={{ base: "full", sm: "container.sm", md: "container.md", lg: "container.lg", xl: "7xl" }} 
+        py={{ base: 4, md: 8 }}
+        px={{ base: 4, md: 6 }}
+      >
+        <VStack spacing={{ base: 6, md: 8 }} align="stretch">
+          {/* Header Section - Responsive Stack */}
+          <Stack 
+            direction={{ base: "column", md: "row" }} 
+            justify="space-between" 
+            align={{ base: "stretch", md: "center" }}
+            spacing={{ base: 4, md: 0 }}
+          >
+            <Heading 
+              size={{ base: "xl", md: "2xl" }} 
+              color="green.700"
+              textAlign={{ base: "center", md: "left" }}
+            >
               Task Dashboard
             </Heading>
-            <TodoForm onSubmit={handleAddTodo} />
-          </HStack>
+            <Box w={{ base: "full", md: "auto" }}>
+              <TodoForm onSubmit={handleAddTodo} />
+            </Box>
+          </Stack>
 
-          <HStack justify="space-between">
+          {/* Menu Button */}
+          <HStack justify={{ base: "flex-start", md: "flex-start" }}>
             <Button colorScheme="green" onClick={onOpen} ref={btnRef}>
               Menu
             </Button>
@@ -64,47 +84,91 @@ export const Dashboard = () => {
 
           <Menu isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
 
-          <Grid templateColumns="repeat(4, 1fr)" gap={6}>
+          {/* Stats Grid - Responsive Columns */}
+          <Grid 
+            templateColumns={{ 
+              base: "repeat(2, 1fr)", 
+              md: "repeat(4, 1fr)" 
+            }} 
+            gap={{ base: 3, md: 6 }}
+          >
             <GridItem>
-              <Card bg="white" boxShadow="sm">
-                <CardBody>
+              <Card bg="white" boxShadow="sm" h="full">
+                <CardBody p={{ base: 3, md: 6 }}>
                   <Stat>
-                    <StatLabel color="green.600">Total Tasks</StatLabel>
-                    <StatNumber color="green.700">{todos.length}</StatNumber>
+                    <StatLabel 
+                      color="green.600" 
+                      fontSize={{ base: "xs", md: "sm" }}
+                    >
+                      Total Tasks
+                    </StatLabel>
+                    <StatNumber 
+                      color="green.700"
+                      fontSize={{ base: "lg", md: "2xl" }}
+                    >
+                      {todos.length}
+                    </StatNumber>
                   </Stat>
                 </CardBody>
               </Card>
             </GridItem>
+            
             <GridItem>
-              <Card bg="white" boxShadow="sm">
-                <CardBody>
+              <Card bg="white" boxShadow="sm" h="full">
+                <CardBody p={{ base: 3, md: 6 }}>
                   <Stat>
-                    <StatLabel color="green.600">Pending</StatLabel>
-                    <StatNumber color="yellow.600">
+                    <StatLabel 
+                      color="green.600"
+                      fontSize={{ base: "xs", md: "sm" }}
+                    >
+                      Pending
+                    </StatLabel>
+                    <StatNumber 
+                      color="yellow.600"
+                      fontSize={{ base: "lg", md: "2xl" }}
+                    >
                       {pendingTodos.length}
                     </StatNumber>
                   </Stat>
                 </CardBody>
               </Card>
             </GridItem>
+            
             <GridItem>
-              <Card bg="white" boxShadow="sm">
-                <CardBody>
+              <Card bg="white" boxShadow="sm" h="full">
+                <CardBody p={{ base: 3, md: 6 }}>
                   <Stat>
-                    <StatLabel color="green.600">Completed</StatLabel>
-                    <StatNumber color="green.600">
+                    <StatLabel 
+                      color="green.600"
+                      fontSize={{ base: "xs", md: "sm" }}
+                    >
+                      Completed
+                    </StatLabel>
+                    <StatNumber 
+                      color="green.600"
+                      fontSize={{ base: "lg", md: "2xl" }}
+                    >
                       {completedTodos.length}
                     </StatNumber>
                   </Stat>
                 </CardBody>
               </Card>
             </GridItem>
+            
             <GridItem>
-              <Card bg="white" boxShadow="sm">
-                <CardBody>
+              <Card bg="white" boxShadow="sm" h="full">
+                <CardBody p={{ base: 3, md: 6 }}>
                   <Stat>
-                    <StatLabel color="green.600">High Priority</StatLabel>
-                    <StatNumber color="red.500">
+                    <StatLabel 
+                      color="green.600"
+                      fontSize={{ base: "xs", md: "sm" }}
+                    >
+                      High Priority
+                    </StatLabel>
+                    <StatNumber 
+                      color="red.500"
+                      fontSize={{ base: "lg", md: "2xl" }}
+                    >
                       {todosByPriority.high.length}
                     </StatNumber>
                   </Stat>
@@ -113,7 +177,14 @@ export const Dashboard = () => {
             </GridItem>
           </Grid>
 
-          <Grid templateColumns="repeat(2, 1fr)" gap={8}>
+          {/* Todo Lists Grid - Responsive Layout */}
+          <Grid 
+            templateColumns={{ 
+              base: "1fr", 
+              lg: "repeat(2, 1fr)" 
+            }} 
+            gap={{ base: 6, md: 8 }}
+          >
             <GridItem>
               <TodoList
                 todos={pendingTodos}

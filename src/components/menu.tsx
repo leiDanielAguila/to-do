@@ -7,7 +7,13 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  AbsoluteCenter,
+  VStack,
+  Box,
+  Button,
+  Center,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export type MenuProps = {
   isOpen: boolean;
@@ -16,6 +22,9 @@ export type MenuProps = {
 };
 
 export const Menu: React.FC<MenuProps> = ({ isOpen, onClose, btnRef }) => {
+  const navigate = useNavigate();
+
+
   return (
     <>
       <Drawer
@@ -28,8 +37,18 @@ export const Menu: React.FC<MenuProps> = ({ isOpen, onClose, btnRef }) => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>To-Do Menu</DrawerHeader>
+          <Center>
+            <Box bg="black" w="90%" h="1px"></Box>
+          </Center>
 
-          <DrawerBody></DrawerBody>
+          <DrawerBody>
+            <VStack>
+              <Button variant={"ghost"} onClick={() => navigate("/dashboard")}>Home</Button>
+              <Button variant={"ghost"} onClick={() => navigate("/generate")}>Generate</Button>
+              <Button variant={"ghost"}>Settings</Button>
+              <Button variant={"ghost"} onClick={() => navigate("/login")}>Login</Button>
+            </VStack>
+          </DrawerBody>
 
           <DrawerFooter></DrawerFooter>
         </DrawerContent>
