@@ -7,6 +7,7 @@ export interface Todo {
   createdAt: Date
   dueDate?: string
   dueTime?: number
+  order?: number
 }
 
 export interface TodoFormData {
